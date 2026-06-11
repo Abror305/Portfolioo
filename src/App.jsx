@@ -1,122 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
+import React, { useState } from 'react';
+import { Navbar } from './components/layout/Navbar';
+import { Hero } from './sections/Hero';
+import { SkillsCarousel } from './sections/SkillsCarousel';
+import { Certifications } from './sections/Certifications';
+import { TerminalSection } from './sections/Terminal';
+export default function App() {
+  const [isHackerMode, setIsHackerMode] = useState(false);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className={`min-h-screen font-mono transition-colors duration-500 relative select-none ${
+      isHackerMode ? 'bg-[#03060d] text-emerald-400' : 'bg-[#060a14] text-slate-200'
+    }`}>
+      
+      {/* Enhanced Matrix Background Animation */}
+      {isHackerMode && (
+        <>
+          {/* Main matrix grid */}
+          <div className="fixed inset-0 opacity-[0.08] pointer-events-none bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:20px_20px] z-0 animate-pulse" />
+          
+          {/* Animated falling characters */}
+          <div className="fixed inset-0 opacity-[0.04] pointer-events-none z-0 overflow-hidden">
+            <div className="absolute inset-0 animate-matrix-fall font-mono text-emerald-500/30 text-xs leading-relaxed whitespace-pre">
+              01101001 10110100 11001010 01011011 10101100 01100101
+              10110101 01110010 11001001 00101010 10101100 11010101
+              01011011 10101100 01100101 10110101 01110010 11001001
+              00101010 10101100 11010101 01011011 10101100 01100101
+            </div>
+          </div>
 
-      <div className="ticks"></div>
+          {/* Holographic grid lines */}
+          <div className="fixed inset-0 pointer-events-none z-0">
+            <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/0 via-emerald-500/[0.03] to-emerald-500/0 animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-transparent to-emerald-500/0" />
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          {/* Animated scan lines */}
+          <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.02]">
+            <div className="h-full w-full bg-[repeating-linear-gradient(0deg,#10b981,#10b981_1px,transparent_1px,transparent_2px)] animate-scanlines" />
+          </div>
+        </>
+      )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {/* Navbar */}
+      <Navbar isHackerMode={isHackerMode} setIsHackerMode={setIsHackerMode} />
+      
+      {/* Main Content */}
+      <main className="relative z-10">
+        <Hero isHackerMode={isHackerMode} />
+        <SkillsCarousel isHackerMode={isHackerMode} />
+        <Certifications isHackerMode={isHackerMode} />
+        <TerminalSection isHackerMode={isHackerMode} />
+      </main>
+    </div>
+  );
 }
-
-export default App
