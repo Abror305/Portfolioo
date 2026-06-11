@@ -13,19 +13,22 @@ import {
   Lock, 
   FileCode, 
   Monitor, 
-  Brackets 
+  Brackets,
+  Binary,
+  Eye,
+  Workflow
 } from 'lucide-react';
 
 export function SkillsCarousel({ isHackerMode }) {
-  // 1. Kalit so'zlar aniq moslangan va tekshirilgan yuqori sifatli rasmlar
+  // 1. Har bir texnologiyaga mos sozlangan yuqori sifatli vizual rasmlar
   const skillImages = {
     // Dev Mode
-    'HTML & CSS': 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
-    'Tailwind CSS': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
+    'HTML & CSS': 'https://images.unsplash.com/photo-1621839673705-6617adf9e890?auto=format&fit=crop&w=1200&q=80',
+    'Tailwind CSS': 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
     'JavaScript': 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?auto=format&fit=crop&w=1200&q=80',
     'TypeScript': 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80',
     'React.js': 'https://images.unsplash.com/photo-1633356122544-f134324ef6db?auto=format&fit=crop&w=1200&q=80',
-    'Next.js': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80',
+    'Next.js': 'https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&w=1200&q=80',
     'Node.js': 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=1200&q=80',
 
     // Hacker Mode
@@ -35,7 +38,7 @@ export function SkillsCarousel({ isHackerMode }) {
     'Wireshark': 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
     'Metasploit': 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1200&q=80',
     'Burp Suite': 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
-    'Python Script': 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+    'Python Script': 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80',
   };
 
   // 2. Muhandislik tavsiflari
@@ -57,7 +60,7 @@ export function SkillsCarousel({ isHackerMode }) {
     'Python Script': 'Versatile object-oriented language for advanced backend tools and low-level system integrations.',
   };
 
-  // 3. Lucide kutubxonasidan har bir elementga mos keluvchi aniq logotiplar (Xatolarsiz kalitlar)
+  // 3. Lucide kutubxonasidan har bir til va vosita uchun maxsus moslangan haqiqiy ikonkalar
   const iconMap = {
     'HTML & CSS': Brackets,
     'Tailwind CSS': FileCode,
@@ -70,22 +73,21 @@ export function SkillsCarousel({ isHackerMode }) {
     'Linux': Monitor,
     'Bash OS': TermIcon,
     'Nmap': Shield,
-    'Wireshark': Globe,
-    'Metasploit': Cpu,
+    'Wireshark': Eye,
+    'Metasploit': Binary,
     'Burp Suite': Lock,
-    'Python Script': Code
+    'Python Script': Workflow
   };
 
-  // Siz so'ragan tillar va vositalarning to'liq va aniq massiv ro'yxati
   const devSkillsFallback = ['HTML & CSS', 'Tailwind CSS', 'JavaScript', 'TypeScript', 'React.js', 'Next.js', 'Node.js'];
   const hackerSkillsFallback = ['Linux', 'Bash OS', 'Nmap', 'Wireshark', 'Metasploit', 'Burp Suite', 'Python Script'];
 
   const rawTools = isHackerMode ? hackerSkillsFallback : devSkillsFallback;
   
   const skillsData = rawTools.map((tool) => {
-    const SelectedIcon = iconMap[tool] || Cpu; // Agar ikonka topilmasa fallback Cpu qo'yiladi
+    const SelectedIcon = iconMap[tool] || Cpu;
     return {
-      id: `${isHackerMode ? 'hack' : 'dev'}-${tool.replace(/\s+/g, '-')}`, // ID lar xavfsiz formatga keltirildi
+      id: `${isHackerMode ? 'hack' : 'dev'}-${tool.replace(/\s+/g, '-')}`,
       title: tool,
       category: isHackerMode ? 'SYSTEM INTEGRATION' : 'ENGINEERING PLATFORMS',
       desc: skillDescriptions[tool] || `Professional system implementation with ${tool}.`,
@@ -110,7 +112,6 @@ export function SkillsCarousel({ isHackerMode }) {
     return () => clearInterval(autoPlayRef.current);
   }, [autoPlay, total]);
 
-  // Rejim (Mode) almashganda karuselni boshiga qaytarish
   useEffect(() => {
     setCurrentIndex(0);
   }, [isHackerMode]);

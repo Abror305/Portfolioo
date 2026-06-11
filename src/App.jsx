@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './sections/Hero';
 import { SkillsCarousel } from './sections/SkillsCarousel';
-import { Certifications } from './sections/Certifications';
 import { TerminalSection } from './sections/Terminal';
+// 1. Projects komponentini to'g'ri import qilamiz
+import Projects from './sections/Certifications'; // Agar faylingiz src/pages ichida bo'lsa. (Agar boshqa papkada bo'lsa, yo'lini to'g'rilang)
+
 export default function App() {
   const [isHackerMode, setIsHackerMode] = useState(false);
 
@@ -48,7 +50,10 @@ export default function App() {
       <main className="relative z-10">
         <Hero isHackerMode={isHackerMode} />
         <SkillsCarousel isHackerMode={isHackerMode} />
-        <Certifications isHackerMode={isHackerMode} />
+        
+        {/* 2. Eski <Certifications /> o'rniga yangi va dinamik <Projects /> komponentini qo'shamiz */}
+        <Projects isHackerMode={isHackerMode} />
+        
         <TerminalSection isHackerMode={isHackerMode} />
       </main>
     </div>
