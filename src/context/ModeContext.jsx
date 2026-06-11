@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useLayoutEffect, useState } from "react";
 
 const ModeContext = createContext(null);
 
@@ -10,7 +10,7 @@ export function ModeProvider({ children }) {
     return localStorage.getItem(STORAGE_KEY) || "dev";
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.setAttribute("data-mode", mode);
     localStorage.setItem(STORAGE_KEY, mode);
   }, [mode]);

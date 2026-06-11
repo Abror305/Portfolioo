@@ -3,11 +3,13 @@ import { useMode } from "../context/ModeContext";
 import Reveal from "./Reveal";
 import TiltCard from "./TiltCard";
 
+const EMAIL = "Bakhromovv23@gmail.com";
+
 const socials = [
   { label: "Telegram", icon: "✈️", href: "https://t.me/FT_bakhromov" },
   { label: "GitHub", icon: "🐙", href: "https://github.com/Abror305" },
   { label: "Instagram", icon: "📸", href: "https://instagram.com/14.Bakhromovv" },
-  { label: "Email", icon: "✉️", href: "mailto:Bakhromovv23@gmail.com" },
+  { label: "Email", icon: "✉️", href: `mailto:${EMAIL}` },
 ];
 
 export default function Contact() {
@@ -20,6 +22,12 @@ export default function Contact() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!form.name || !form.message) return;
+    // Compose a real email in the visitor's mail client — no silent drops.
+    const subject = encodeURIComponent(`Portfolio message from ${form.name}`);
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email || "—"}\n\n${form.message}`
+    );
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
     setSent(true);
     setTimeout(() => setSent(false), 3500);
     setForm({ name: "", email: "", message: "" });
@@ -71,24 +79,13 @@ export default function Contact() {
                   <textarea name="message" rows="4" value={form.message} onChange={onChange} placeholder={isHack ? "type payload..." : "Your message"} required />
                 </label>
                 <button className="btn btn-primary" type="submit">
-                  {sent ? (isHack ? "[ packet sent ✔ ]" : "Message sent ✔") : isHack ? "./send" : "Send Message"}
+                  {sent ? (isHack ? "[ opening mail client… ]" : "Opening your email app…") : isHack ? "./send" : "Send Message"}
                 </button>
               </form>
             </TiltCard>
           </Reveal>
         </div>
       </div>
-
-      <footer className="footer">
-        <div className="container footer-inner">
-          <span>
-            {isHack ? "© 2025 root@bakhromov — all systems nominal" : "© 2025 Bakhromov. Built with React."}
-          </span>
-          <button className="to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-            {isHack ? "cd ~" : "Back to top ↑"}
-          </button>
-        </div>
-      </footer>
     </section>
   );
 }
